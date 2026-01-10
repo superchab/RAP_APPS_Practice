@@ -14,8 +14,10 @@ define root view entity zzum_c_tasktp
       TaskId,
       Title,
       Description,
+      @ObjectModel.text.element: [ 'StatusDescription' ]
       OverallStatus,
-
+      StatusCriticality,
+      StatusDescription,
       Locallastchangedat, -- Needed for ETag
 
       /* Associations */

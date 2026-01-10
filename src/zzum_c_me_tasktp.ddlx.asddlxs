@@ -29,19 +29,28 @@ annotate entity zzum_c_tasktp with
   @EndUserText.label: 'Task ID'
   TaskId;
 
+  @EndUserText.label: 'Title'
+  @EndUserText.quickInfo: 'Title'
   @UI.identification: [ { position: 20 } ]
   @UI.lineItem: [ { position: 20, importance: #HIGH } ]
   @UI.selectionField: [ { position: 20 } ]
-  @EndUserText:{ label: 'Title', quickInfo: 'Title' }
   Title;
 
+  @EndUserText.label: 'Description'
+  @EndUserText.quickInfo: 'Description'
   @UI.identification: [ { position: 30 } ]
-  @UI.lineItem: [{ position: 30 }]
-  @EndUserText:{ label: 'Description', quickInfo: 'Description' }
+  @UI.lineItem: [ { position: 30 } ]
   Description;
 
-  @UI.identification: [ { position: 40 } ]
-  @UI.lineItem: [ { position: 40, criticality: 'OverallStatus' } ]
+  @UI.identification: [ { position: 40, criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.lineItem: [ { position: 40, criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.textArrangement: #TEXT_LAST -- This ensures "I (In Progress)" fromat
+  @UI.dataPoint: {
+      qualifier: 'StatusHeader',
+      title: 'Current Status',
+      criticality: 'StatusCriticality',
+      criticalityRepresentation: #WITHOUT_ICON
+  }
   @EndUserText.label: 'Overall status'
   OverallStatus;
 
@@ -50,7 +59,6 @@ annotate entity zzum_c_tasktp with
 
   @UI.hidden: true
   TaskUuid;
-
 //  /* Associations */
-//  _Subtask;
+  //  _Subtask;
 }
