@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service definiton Task'
+define service Zzum_ui_Task {
+  expose zzum_c_tasktp    as Task;
+  expose zzum_c_subtaskTP as Subtask;
+}

@@ -1,0 +1,26 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for zzum_c_tasktp //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Resume;
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+
+  use association _Subtask { create; with draft; }
+}
+
+define behavior for zzum_c_subtaskTP //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _Header { with draft; }
+}

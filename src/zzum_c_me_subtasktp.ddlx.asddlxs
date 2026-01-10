@@ -1,0 +1,41 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { typeName: 'Subtask',
+                  typeNamePlural: 'Subtasks',
+                  title: { type: #STANDARD, value: 'SubtaskID' } }
+
+annotate entity zzum_c_subtaskTP with
+
+{
+  @UI.facet: [ { id: 'SubtaskInfo',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Subtask details',
+                 position: 10 } ]
+  @UI.identification: [ { position: 10 } ]
+  @UI.lineItem: [ { position: 10, importance: #HIGH } ]
+  SubtaskID;
+
+  @UI.identification: [ { position: 20 } ]
+  @UI.lineItem: [ { position: 20 } ]
+  Description;
+
+  @UI.identification: [ { position: 40 } ]
+  @UI.lineItem: [ { position: 40 } ]
+  DueDate;
+
+  @UI.identification: [ { position: 30 } ]
+  @UI.lineItem: [ { position: 30 } ]
+  Status;
+
+  @UI.hidden: true
+  SubtaskUUID;
+
+  @UI.hidden: true
+  ParentUUID;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+  //  /* Associations */
+  //  _Header;
+}
