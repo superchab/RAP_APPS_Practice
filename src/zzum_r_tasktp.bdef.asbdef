@@ -1,0 +1,84 @@
+managed implementation in class zbp_zum_r_tasktp unique;
+strict ( 2 );
+with draft;
+
+define behavior for zzum_r_tasktp alias Header
+persistent table zzum_task_head
+draft table zzum_task_d // You must generate this table (Quick Fix)
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+
+  draft action Resume;
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft determine action Prepare;
+
+  // Link to Child
+  association _Subtask { create; with draft; }
+
+  // 1. Key Management (UUIDs)
+  field ( numbering : managed, readonly ) TaskUUID;
+
+  // 2. Read-Only Fields (System Managed)
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  // 3. Mapping: CDS Names <-> DB Table Names
+  mapping for zzum_task_head
+    {
+      TaskUUID           = task_uuid;
+      TaskID             = task_id;
+      Title              = title;
+      Description        = description;
+      OverallStatus      = overall_status;
+      CreatedBy          = createdby;
+      CreatedAt          = createdat;
+      LastChangedBy      = lastchangedby;
+      LastChangedAt      = lastchangedat;
+      LocalLastChangedAt = locallastchangedat;
+    }
+}
+
+define behavior for zzum_r_subtasktp alias Item
+persistent table zzum_task_item
+draft table zzum_subtask_d // You must generate this table (Quick Fix)
+lock dependent by _Header
+authorization dependent by _Header
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  // Link to Parent
+  association _Header { with draft; }
+
+  // 1. Key Management
+  field ( numbering : managed, readonly ) SubtaskUUID;
+  field ( readonly ) ParentUUID;
+
+  // 2. Read-Only Fields
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  // 3. Mapping
+  mapping for zzum_task_item
+    {
+      SubtaskUUID        = subtask_uuid;
+      ParentUUID         = parent_uuid;
+      SubtaskID          = subtask_id;
+      Description        = description;
+      Status             = status;
+      DueDate            = due_date;
+      CreatedBy          = createdby;
+      CreatedAt          = createdat;
+      LastChangedBy      = lastchangedby;
+      LastChangedAt      = lastchangedat;
+      LocalLastChangedAt = locallastchangedat;
+    }
+}
