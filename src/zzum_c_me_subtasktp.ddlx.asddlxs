@@ -7,6 +7,7 @@
 annotate entity zzum_c_subtaskTP with
 
 {
+  @EndUserText.label: 'Subtask ID'
   @UI.facet: [ { id: 'SubtaskInfo',
                  purpose: #STANDARD,
                  type: #IDENTIFICATION_REFERENCE,
@@ -16,14 +17,18 @@ annotate entity zzum_c_subtaskTP with
   @UI.lineItem: [ { position: 10, importance: #HIGH } ]
   SubtaskID;
 
+  @EndUserText.label: 'Description'
   @UI.identification: [ { position: 20 } ]
   @UI.lineItem: [ { position: 20 } ]
   Description;
 
+  @EndUserText.label: 'Due date'
   @UI.identification: [ { position: 40 } ]
   @UI.lineItem: [ { position: 40 } ]
   DueDate;
 
+  @Consumption.valueHelpDefinition: [ { entity: { name: 'ZZUM_I_STATUS_VH', element: 'Status' } } ]
+  @EndUserText.label: 'Status'
   @UI.identification: [ { position: 30 } ]
   @UI.lineItem: [ { position: 30 } ]
   Status;
@@ -36,6 +41,6 @@ annotate entity zzum_c_subtaskTP with
 
   @UI.hidden: true
   LocalLastChangedAt;
-  //  /* Associations */
+//  /* Associations */
   //  _Header;
 }

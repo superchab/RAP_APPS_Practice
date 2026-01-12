@@ -51,6 +51,7 @@ annotate entity zzum_c_tasktp with
       criticality: 'StatusCriticality',
       criticalityRepresentation: #WITHOUT_ICON
   }
+  @Consumption.valueHelpDefinition: [{ entity.name: 'ZZUM_I_STATUS_VH', entity.element: 'Status' }]
   @EndUserText.label: 'Overall status'
   OverallStatus;
 

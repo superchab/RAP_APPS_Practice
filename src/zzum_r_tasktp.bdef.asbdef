@@ -15,11 +15,20 @@ etag master LocalLastChangedAt
   delete;
 
 
+  validation validateTitle on save { field Title; create; update; }
+  validation validateMinOneSubtask on save { create; update; }
+  determination SetInitialStatus on modify { create; }
+  determination CalculateTaskID on save { create; }
+
+
   draft action Resume;
   draft action Edit;
   draft action Activate optimized;
   draft action Discard;
-  draft determine action Prepare;
+  draft determine action Prepare { validation validateMinOneSubtask; validation validateTitle;
+  determination CalculateTaskID; }
+
+
 
   // Link to Child
   association _Subtask { create; with draft; }
@@ -28,7 +37,7 @@ etag master LocalLastChangedAt
   field ( numbering : managed, readonly ) TaskUUID;
 
   // 2. Read-Only Fields (System Managed)
-  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( readonly ) TaskID, OverallStatus, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
 
   // 3. Mapping: CDS Names <-> DB Table Names
   mapping for zzum_task_head
