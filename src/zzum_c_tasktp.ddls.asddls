@@ -9,17 +9,24 @@ define root view entity zzum_c_tasktp
   as projection on zzum_r_tasktp
 
 {
-  key TaskUuid,
+  key     TaskUuid,
 
-      TaskId,
-      Title,
-      Description,
-      @ObjectModel.text.element: [ 'StatusDescription' ]
-      OverallStatus,
-      StatusCriticality,
-      StatusDescription,
-      Locallastchangedat, -- Needed for ETag
+          TaskId,
+          Title,
+          Description,
 
-      /* Associations */
-      _Subtask : redirected to composition child zzum_c_subtaskTP
+          @ObjectModel.text.element: [ 'StatusDescription' ]
+          OverallStatus,
+
+          @ObjectModel.filter.enabled: false
+          @ObjectModel.virtualElement: true
+          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_ZUM_CALCULATED_PROGRESS'
+  virtual Progress : abap.int4,
+
+          StatusCriticality,
+          StatusDescription,
+          Locallastchangedat, -- Needed for ETag
+
+          /* Associations */
+          _Subtask : redirected to composition child zzum_c_subtaskTP
 }

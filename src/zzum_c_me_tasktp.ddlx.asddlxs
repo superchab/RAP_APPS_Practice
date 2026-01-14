@@ -44,7 +44,7 @@ annotate entity zzum_c_tasktp with
 
   @UI.identification: [ { position: 40, criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
   @UI.lineItem: [ { position: 40, criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
-  @UI.textArrangement: #TEXT_LAST -- This ensures "I (In Progress)" fromat
+  @UI.textArrangement: #TEXT_LAST   -- This ensures "I (In Progress)" fromat
   @UI.dataPoint: {
       qualifier: 'StatusHeader',
       title: 'Current Status',
@@ -55,11 +55,30 @@ annotate entity zzum_c_tasktp with
   @EndUserText.label: 'Overall status'
   OverallStatus;
 
+  @UI.dataPoint: {
+       qualifier: 'Progress',
+       title: 'Completion',
+       targetValue:  100 ,           -- The bar max is 100
+       visualization: #PROGRESS,  -- Turns the number into a Bar
+         criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON -- Optional: Use the same color logic (Red/Green) as Status
+    }
+  @UI.lineItem: [
+    {
+      position: 50,
+      label: 'Progress Status',
+      value: 'Progress',
+      type: #AS_DATAPOINT
+    }
+    ]
+
+  //  @UI.lineItem: [{ position: 50 }]
+  Progress;
+
   @UI.hidden: true
   Locallastchangedat;
 
   @UI.hidden: true
   TaskUuid;
-//  /* Associations */
+  //  /* Associations */
   //  _Subtask;
 }

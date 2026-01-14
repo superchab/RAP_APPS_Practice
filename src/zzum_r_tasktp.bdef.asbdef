@@ -25,8 +25,9 @@ etag master LocalLastChangedAt
   draft action Edit;
   draft action Activate optimized;
   draft action Discard;
-  draft determine action Prepare { validation validateMinOneSubtask; validation validateTitle;
-  determination CalculateTaskID; }
+  draft determine action Prepare
+  { validation validateMinOneSubtask; validation validateTitle;
+    determination CalculateTaskID; }
 
 
 
@@ -64,7 +65,8 @@ etag master LocalLastChangedAt
 {
   update;
   delete;
-
+  validation ValidateDueDate on save { create; update; field DueDate; }
+  determination SetHeaderStatus on save { create; update; field Status; }
   // Link to Parent
   association _Header { with draft; }
 
