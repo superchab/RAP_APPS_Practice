@@ -29,16 +29,14 @@ etag master LocalLastChangedAt
   { validation validateMinOneSubtask; validation validateTitle;
     determination CalculateTaskID; }
 
-
-
   // Link to Child
   association _Subtask { create; with draft; }
 
-  // 1. Key Management (UUIDs)
+//   1. Key Management (UUIDs)
   field ( numbering : managed, readonly ) TaskUUID;
 
   // 2. Read-Only Fields (System Managed)
-  field ( readonly ) TaskID, OverallStatus, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( readonly ) Taskid, OverallStatus, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
 
   // 3. Mapping: CDS Names <-> DB Table Names
   mapping for zzum_task_head
@@ -69,6 +67,11 @@ etag master LocalLastChangedAt
   determination SetHeaderStatus on save { create; update; field Status; }
   // Link to Parent
   association _Header { with draft; }
+
+
+  side effects
+  { field Status affects entity _Header;
+  }
 
   // 1. Key Management
   field ( numbering : managed, readonly ) SubtaskUUID;
